@@ -125,20 +125,13 @@ def worker(input_q, output_q, cropped_output_q, inferences_q, landmark_ouput_q,c
 
             # detect faces in the grayscale frame
             rects = detector(gray, 0)
-                # loop over the face detections
             for rect in rects:
-                # determine the facial landmarks for the face region, then
-                # convert the facial landmark (x, y)-coordinates to a NumPy
-                # array
                 shape = predictor(gray, rect)
                 shape = face_utils.shape_to_np(shape)
 
-                # loop over the (x, y)-coordinates for the facial landmarks
-                # and draw them on the image
                 for (x, y) in shape:
                     cv2.circle(image_np1, (x, y), 1, (0, 0, 255), -1)
-
-            # add frame annotated with bounding box to queue
+                    
             landmark_ouput_q.put(image_np1)
             cropped_output_q.put(res)
             output_q.put(frame)
