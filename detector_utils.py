@@ -14,17 +14,17 @@ tf.disable_v2_behavior()
 detection_graph = tf.Graph()
 sys.path.append("..")
 
-# score threshold for showing bounding boxes.
+
 _score_thresh = 0.18
 
 MODEL_NAME = 'models'
-# Path to frozen detection graph. This is the actual model that is used for the object detection.
+
 PATH_TO_CKPT = MODEL_NAME + '/frozen_inference_graph.pb'
-# List of the strings that is used to add correct label for each box.
+
 PATH_TO_LABELS = os.path.join(MODEL_NAME, 'hand_label_map.pbtxt')
 
 NUM_CLASSES = 1
-# load label map
+
 label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
 
 categories = label_map_util.convert_label_map_to_categories(
@@ -32,10 +32,9 @@ categories = label_map_util.convert_label_map_to_categories(
 category_index = label_map_util.create_category_index(categories)
 
 
-# Load a frozen infrerence graph into memory
-def load_inference_graph():
 
-    # load frozen tensorflow model into memory
+def load_inference_graph():
+    
     print("> ====== loading HAND frozen graph into memory")
     detection_graph = tf.Graph()
     with detection_graph.as_default():
@@ -49,8 +48,7 @@ def load_inference_graph():
     return detection_graph, sess
 
 
-# draw the detected bounding boxes on the images
-# You can modify this to also draw a label.
+
 def draw_box_on_image(num_hands_detect, score_thresh, scores, boxes, im_width, im_height, frame):
     for i in range(num_hands_detect):
         if (scores[i] > score_thresh):
@@ -67,7 +65,6 @@ def get_box_image(num_hands_detect, score_thresh, scores, boxes, im_width, im_he
                                           boxes[i][0] * im_height, boxes[i][2] * im_height)
             return image_np[int(top):int(bottom), int(left):int(right)].copy()
 
-# Show fps value on image.
 def draw_fps_on_image(fps, image_np):
     cv2.putText(image_np, fps, (20, 50),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.75, (77, 255, 9), 2)
