@@ -5,20 +5,20 @@ import numpy as np
 from collections import OrderedDict
 detection_graph, sess = detector_utils.load_inference_graph()
 class Tracker:
-    def __init__(self, maxLost = 30):           # maxLost: maximum object lost counted when the object is being tracked
-        self.nextObjectID = 0                   # ID of next object
-        self.objects = OrderedDict()            # stores ID:Locations
-        self.lost = OrderedDict()               # stores ID:Lost_count
+    def __init__(self, maxLost = 30):           
+        self.nextObjectID = 0                   
+        self.objects = OrderedDict()          
+        self.lost = OrderedDict()              
         
-        self.maxLost = maxLost                  # maximum number of frames object was not detected.
+        self.maxLost = maxLost                 
         
     def addObject(self, new_object_location):
-        self.objects[self.nextObjectID] = new_object_location    # store new object location
-        self.lost[self.nextObjectID] = 0                         # initialize frame_counts for when new object is undetected
+        self.objects[self.nextObjectID] = new_object_location   
+        self.lost[self.nextObjectID] = 0                        
         
         self.nextObjectID += 1
     
-    def removeObject(self, objectID):                          # remove tracker data after object is lost
+    def removeObject(self, objectID):                         
         del self.objects[objectID]
         del self.lost[objectID]
     
@@ -29,7 +29,7 @@ class Tracker:
     
     def update(self,  detections):
         
-        if len(detections) == 0:   # if no object detected in the frame
+        if len(detections) == 0:   
             lost_ids = list(self.lost.keys())
             for objectID in lost_ids:
                 self.lost[objectID] +=1
@@ -37,7 +37,7 @@ class Tracker:
             
             return self.objects
         
-        new_object_locations = np.zeros((len(detections), 2), dtype="int")     # current object locations
+        new_object_locations = np.zeros((len(detections), 2), dtype="int")     
         
         for (i, detection) in enumerate(detections): new_object_locations[i] = self.getLocation(detection)
             
