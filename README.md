@@ -32,7 +32,7 @@ This project aims to recognize Arabic Sign Language letters from images using co
 ## Credits
 
 This project was originally developed by [Pavly Halim](https://github.com/pavlyhalim/Arabic-Sign-Language) under the MIT License.  
-The current version includes adaptations and restructuring by Fatima Alamoudi as part of academic research on accessible AI applications.
+The current version includes adaptations and restructuring by Fatma Alamoudi as part of academic research on accessible AI applications.
 
 ## License
 
