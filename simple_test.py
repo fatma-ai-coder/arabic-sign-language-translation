@@ -4,13 +4,13 @@ import numpy as np
 import copy
 import cv2
 
-# install: pip install --upgrade arabic-reshaper
+#  pip install --upgrade arabic-reshaper
 import arabic_reshaper
 
-# install: pip install python-bidi
+#  pip install python-bidi
 from bidi.algorithm import get_display
 
-# install: pip install Pillow
+#  pip install Pillow
 from PIL import ImageFont
 from PIL import Image
 from PIL import ImageDraw
