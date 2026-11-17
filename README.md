@@ -1,46 +1,47 @@
 # Arabic Sign Language Translation
 
-A computer vision project that translates Arabic sign language gestures into readable text using deep learning techniques.
+Real-time translation of Arabic Sign Language (ArSL) letters into Arabic text, using a webcam, a hand detector and a CNN classifier.
 
-This project was developed by **Fatma Alamoudi** as part of a research initiative at **Dar Al-Hekma University**, and was presented during the **CCTS 2024 Conference** (Computing and Cybersecurity Technologies Symposium). It aims to contribute to accessible AI solutions for the hearing-impaired community by recognizing Arabic Sign Language (ArSL) letters using a convolutional neural network (CNN).
+![Sign to text demo](videos/sign-to-text-gif.gif)
 
-## 🎯 Project Objectives
+A research project at **Dar Al-Hekma University**, presented at the **CCTS conference** (Computing and Cybersecurity Technologies Symposium).
 
-- Advance assistive technology for Arabic-speaking individuals with hearing impairments.
-- Build a reliable machine learning model capable of recognizing static ArSL hand gestures.
-- Present and document the work as a formal research contribution.
+**Paper:** *Using Machine Learning to Transcribe Visual Arabic Sign Language*, by Anas Al-Tirawi, Fatma Alamoudi, Rahaf Al-Shabrawi and Judi Al-Baghajati. [Read the PDF](docs/arabic_sign_language_paper.pdf)
 
+## How it works
 
-## 📚 Dataset
+1. **Hand detection:** an SSD model (TensorFlow frozen graph) finds the hand in each webcam frame.
+2. **Letter classification:** the cropped hand is resized to 64x64 and passed to a CNN trained on 32 ArSL letter classes.
+3. **Arabic output:** predicted letters are joined into words and drawn on screen with correct right-to-left shaping (`arabic-reshaper` + `python-bidi`).
 
-- [KARSL-502 Arabic Sign Language Dataset](https://www.kaggle.com/datasets/yousefdotpy/karsl-502)
+## Dataset
 
-## 🧪 Tools and Technologies
+ArASL2018 (ArASL_Database_54K): about 54,000 images of 32 Arabic sign language letters. Training notebook: [`train_model/train_char_model.ipynb`](train_model/train_char_model.ipynb)
 
-- Python  
-- TensorFlow / Keras  
-- OpenCV  
-- NumPy, Pandas  
-- Matplotlib
+## Run it
 
-## 📄 Research Paper
+```bash
+pip install -r requirements.txt
+python simple_test.py              # quick webcam test of the letter classifier
+python ASL_detection_landmark.py   # full pipeline: hand detection + classification
+```
 
-Full details of the methodology, experimentation process, and results are available in the paper below:
+Needs Python 3.8 (the pinned TensorFlow 2.4 does not install on newer versions) and a webcam.
 
-📘 [View the paper (PDF)](docs/arabic_sign_language_paper.pdf)
+## Tech
 
-## 🌱 Future Directions
+Python, TensorFlow / Keras, OpenCV, dlib, NumPy, Pandas
 
-- Extend model to support full-word and sentence-level sign recognition.
-- Apply time-series models for dynamic gestures.
-- Build a real-time application for deployment in educational or assistive tools.
-- Explore larger datasets and transfer learning approaches.
+## Next steps
 
-## 🙏 Acknowledgments
+- Word and sentence level recognition with sequence models for moving signs
+- Transfer learning on larger datasets
+- A mobile app for daily use
 
-The initial concept and base code were adapted from [Pavly Halim](https://github.com/pavlyhalim/Arabic-Sign-Language) under the MIT License.  
-This version was **significantly restructured and extended** by **Fatma Alamoudi** for academic research and presentation at **CCTS 2023**.
+## Credits
 
-## 📜 License
+The base code was adapted from [Pavly Halim](https://github.com/pavlyhalim/Arabic-Sign-Language) under the MIT License, then restructured and extended for this research.
 
-This repository is licensed under the [MIT License](LICENSE).
+## License
+
+[MIT](LICENSE)
